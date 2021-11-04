@@ -20,4 +20,5 @@ export class TimerComponent implements OnInit {
       this.seconds++;
     },1000)
   }
+
 }

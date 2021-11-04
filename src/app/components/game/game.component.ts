@@ -18,5 +18,4 @@ export class GameComponent implements OnInit {
   incFlips(){
     this.flips++;
   }
-
 }
