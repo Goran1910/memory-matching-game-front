@@ -22,20 +22,19 @@ export class CardComponent implements OnInit {
   }
 
   flip(event: any){
-    this.playAudio();
     let source = event.srcElement;
     let parent = source.closest('app-card');
-    source?.classList.toggle('hide');
-    if(source.id == 'foreground'){
-      parent.querySelector('#background')?.classList.toggle('hide');
-      this.cardFlippedDown.emit('');
-    } else{
-      parent.querySelector('#foreground')?.classList.toggle('hide');
-      this.cardFlippedUp.emit(parent.getAttribute('data-index'));
+    if(!parent.classList.contains('solved')){
+      this.playAudio();
+      source?.classList.toggle('hide');
+      if(source.id == 'foreground'){
+        parent.querySelector('#background')?.classList.toggle('hide');
+        this.cardFlippedDown.emit('');
+      } else{
+        parent.querySelector('#foreground')?.classList.toggle('hide');
+        this.cardFlippedUp.emit(parent.getAttribute('data-index'));
+      }
     }
-
-    
-
     //source?.querySelector('#foreground').classList.toggle('hide');
 
 
