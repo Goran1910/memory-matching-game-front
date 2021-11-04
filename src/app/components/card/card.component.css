@@ -1,0 +1,14 @@
+div {
+    display: inline-block;
+    width: 142px;
+    overflow: hidden;
+}
+
+.hide{
+    /*visibility: hidden;*/
+    display: none;
+}
+
+img{
+    height: 200px;
+}
