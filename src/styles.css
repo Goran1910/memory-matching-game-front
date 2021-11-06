@@ -1,7 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+html{
+    height: 100%;
+}
+
 body{
-    /*background-image: linear-gradient(white, black);*/
-    background-color: khaki;
+    background-image: linear-gradient(to bottom right, white, black);
+    height: 100%;
 }
 
 app-root{
