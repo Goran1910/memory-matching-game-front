@@ -22,6 +22,7 @@ export class CardListComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.shuffle();
   }
 
   incFlippedCards(indexOfCurrentlyFlippedCard: string){
@@ -72,6 +73,7 @@ export class CardListComponent implements OnInit {
     if(sources[0] === sources[1]){
       parents[0].classList.add('solved');
       parents[1].classList.add('solved');
+      this.checkIfFinished();
     }
   }
 
@@ -80,5 +82,34 @@ export class CardListComponent implements OnInit {
       node1.remove();
       node2.remove();
     }, 1000);*/
+  }
+
+  checkIfFinished(): boolean{
+    let cards = document.querySelectorAll('app-card');
+    let finished = true;
+    console.log(cards);
+
+    cards.forEach(card => {
+      if(!card.classList.contains('solved')){
+        console.log('ne');
+        finished = false;
+      }
+    })
+    console.log('Finished!');
+    return true;
+  }
+
+  shuffle() {
+    var m = this.cards.length, t, i;
+
+    while (m) {
+
+      i = Math.floor(Math.random() * m--);
+  
+      t = this.cards[m];
+      this.cards[m] = this.cards[i];
+      this.cards[i] = t;
+    }
+
   }
 }
