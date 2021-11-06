@@ -73,6 +73,7 @@ export class CardListComponent implements OnInit {
     if(sources[0] === sources[1]){
       parents[0].classList.add('solved');
       parents[1].classList.add('solved');
+      this.playCorrectAudio();
       this.checkIfFinished();
     }
   }
@@ -97,6 +98,13 @@ export class CardListComponent implements OnInit {
     })
     console.log('Finished!');
     return true;
+  }
+
+  playCorrectAudio(){
+    let audio = new Audio();
+    audio.src = '../../assets/sounds/correct.wav';
+    audio.load();
+    audio.play();
   }
 
   shuffle() {
