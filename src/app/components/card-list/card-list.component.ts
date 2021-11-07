@@ -15,9 +15,13 @@ export class CardListComponent implements OnInit {
    '../../assets/images/macka.jpg'
   ]
   flippedCards = 0;
+  automaticFlip: any;
 
   @Output()
   flippedCard: EventEmitter<any> = new EventEmitter();
+
+  @Output()
+  finishedEvent: EventEmitter<any> = new EventEmitter();
 
   constructor() { }
 
@@ -29,9 +33,11 @@ export class CardListComponent implements OnInit {
     this.flippedCard.emit('');
     this.flippedCards++;
     if(this.flippedCards === 2){
+      this.flipAutomatic();
       this.checkIfCorrect();
     }
     if(this.flippedCards > 2){
+      clearTimeout(this.automaticFlip);
       this.flippedCards = 0;
       this.flipAll(indexOfCurrentlyFlippedCard);
     } 
@@ -42,7 +48,13 @@ export class CardListComponent implements OnInit {
     this.flippedCards--;
   }
 
-  flipAll(index: string){
+  flipAutomatic(){
+    this.automaticFlip = setTimeout(() => {
+      this.flipAll(undefined);
+    }, 1000)
+  }
+
+  flipAll(index: string | undefined){
     let flipped = document.querySelectorAll('.background.hide');
     flipped.forEach(f => {
       let parent = f.closest('app-card');
@@ -51,17 +63,18 @@ export class CardListComponent implements OnInit {
         f.classList.toggle('hide');
       }
     });
-    this.flippedCards = 1;
+    if(index){
+      this.flippedCards = 1;
+    } else{
+      this.flippedCards = 0;
+    }
+    
   }
 
   checkIfCorrect(){
     let flipped = document.querySelectorAll('.background.hide');
     let sources: any[] = [];
     let parents: any[] = [];
-    /*let parent1 = flipped[0].closest('app-card');
-    let parent2 = flipped[1].closest('app-card');
-    let src1 = parent1?.querySelector('.foreground')?.getAttribute('src');
-    let src2 = parent2?.querySelector('.foreground')?.getAttribute('src');*/
     flipped.forEach(f => {
       let parent = f.closest('app-card');
       if(!parent?.classList.contains('solved')){
@@ -78,25 +91,18 @@ export class CardListComponent implements OnInit {
     }
   }
 
-  deleteMatched(node1: Element, node2: Element){
-    /*setTimeout(() => {
-      node1.remove();
-      node2.remove();
-    }, 1000);*/
-  }
-
   checkIfFinished(): boolean{
     let cards = document.querySelectorAll('app-card');
     let finished = true;
-    console.log(cards);
 
     cards.forEach(card => {
       if(!card.classList.contains('solved')){
-        console.log('ne');
         finished = false;
       }
     })
-    console.log('Finished!');
+    if(finished){
+      this.finishedEvent.emit('');
+    }
     return true;
   }
 
@@ -109,11 +115,8 @@ export class CardListComponent implements OnInit {
 
   shuffle() {
     var m = this.cards.length, t, i;
-
     while (m) {
-
       i = Math.floor(Math.random() * m--);
-  
       t = this.cards[m];
       this.cards[m] = this.cards[i];
       this.cards[i] = t;
