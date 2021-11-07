@@ -1,4 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { animals } from 'src/app/entity/game';
+import { basketball } from 'src/app/entity/game';
+import { bands } from 'src/app/entity/game';
+
 
 @Component({
   selector: 'app-card-list',
@@ -7,13 +12,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class CardListComponent implements OnInit {
 
-  cards = ['../../assets/images/srba.jpg',
-   '../../assets/images/pas.jpg',
-   '../../assets/images/macka.jpg',
-   '../../assets/images/srba.jpg',
-   '../../assets/images/pas.jpg',
-   '../../assets/images/macka.jpg'
-  ]
+  cards = [''];
   flippedCards = 0;
   automaticFlip: any;
 
@@ -23,10 +22,20 @@ export class CardListComponent implements OnInit {
   @Output()
   finishedEvent: EventEmitter<any> = new EventEmitter();
 
-  constructor() { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.shuffle();
+    this.route.queryParams.subscribe((params) => {
+      console.log(params.type);
+      if(params.type === 'Animals'){
+        this.cards = animals;
+      } else if(params.type === 'Basketball'){
+        this.cards = basketball;
+      } else if(params.type === 'Bands'){
+        this.cards = bands;
+      }
+      this.shuffle();
+    })
   }
 
   incFlippedCards(indexOfCurrentlyFlippedCard: string){
@@ -68,7 +77,6 @@ export class CardListComponent implements OnInit {
     } else{
       this.flippedCards = 0;
     }
-    
   }
 
   checkIfCorrect(){

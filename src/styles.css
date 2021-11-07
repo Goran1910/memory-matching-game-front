@@ -1,13 +1,31 @@
-/* You can add global styles to this file, and also import other style files */
+
 html{
     height: 100%;
 }
 
 body{
-    background-image: linear-gradient(to bottom right, white, black);
-    height: 100%;
+    background-color: gray;
+    min-height: 100vh;
 }
 
 app-root{
     margin: auto;
+}
+
+button{
+    background-color: white;
+    border: black 4px solid;
+    font-size: 30px;
+    font-family: 'Fruktur';
+    padding: 10px;
+    margin: 5px;
+}
+
+button:hover{
+    cursor: pointer;
+    background-color: #969696;
+}
+
+p{
+    font-family: 'Fruktur';
 }

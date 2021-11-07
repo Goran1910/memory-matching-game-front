@@ -1,4 +1,4 @@
 <div>
     <h1>Memory Matching Game</h1>
-    <button [routerLink]='["game"]'>Play</button>
+    <button *ngFor='let type of types' [routerLink]='["game"]' [queryParams]= "{ type: type }">{{type}}</button>
 </div>

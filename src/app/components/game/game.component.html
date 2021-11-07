@@ -1,3 +1,12 @@
-<app-timer></app-timer>
+<app-timer [shouldStop]='timerStopped' (finalTime)='finish($event)'></app-timer>
 <p>Flips: {{flips}}</p>
-<app-card-list (flippedCard)='incFlips()'></app-card-list>
+<app-card-list (flippedCard)='incFlips()' (finishedEvent)='stopTimer()'></app-card-list>
+<div id="modal" class='hidden'>
+    <div id="modal-content">
+        <p>Congratulations!</p>
+        <p id='finalTime'></p>
+        <p id='flips'>Flips: {{this.flips}}</p>
+        <button [routerLink]='["/"]'>Home</button>
+        <button (click)='restart()'>Play again</button>
+    </div>
+</div>

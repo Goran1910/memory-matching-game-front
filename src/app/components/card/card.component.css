@@ -1,12 +1,12 @@
 div {
     display: inline-block;
     width: 142px;
+    height: fit-content;
     overflow: hidden;
     margin: 5px;
 }
 
 .hide{
-    /*visibility: hidden;*/
     display: none;
 }
 
