@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { types } from 'src/app/entity/game';
+import { CategoryServiceService } from 'src/app/services/category-service.service';
 
 @Component({
   selector: 'app-main',
@@ -8,11 +9,16 @@ import { types } from 'src/app/entity/game';
 })
 export class MainComponent implements OnInit {
 
-  types = types;
+  types: string[] = [];
 
-  constructor() { }
+  constructor(private categoryService: CategoryServiceService) { }
 
   ngOnInit(): void {
+    this.categoryService.getCategories().subscribe((res) => {
+      console.log(res);
+      
+      this.types = res;
+    })
   }
 
 }

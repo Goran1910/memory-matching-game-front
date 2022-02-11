@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { animals } from 'src/app/entity/game';
 import { basketball } from 'src/app/entity/game';
 import { bands } from 'src/app/entity/game';
+import { CategoryServiceService } from 'src/app/services/category-service.service';
 
 
 @Component({
@@ -22,7 +23,7 @@ export class CardListComponent implements OnInit {
   @Output()
   finishedEvent: EventEmitter<any> = new EventEmitter();
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private categoryService: CategoryServiceService) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {

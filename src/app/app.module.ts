@@ -9,6 +9,7 @@ import { MainComponent } from './components/main/main.component';
 import { RouterModule, Routes } from '@angular/router';
 import { GameComponent } from './components/game/game.component';
 import { TimerComponent } from './components/timer/timer.component';
+import { HttpClientModule } from '@angular/common/http';
 
 const appRoutes: Routes = [
   { path: '', component: MainComponent },
@@ -27,6 +28,7 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [],
